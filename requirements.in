@@ -1,0 +1,26 @@
+# API Server
+gunicorn
+uvicorn[standard]
+
+# Database
+motor
+dnspython
+beanie
+
+# Encrypt/JWT
+passlib[bcrypt]
+python-jose[cryptography]
+
+# Others
+fastapi
+pydantic[email]
+pip-tools
+black
+flake8
+python-multipart
+pytest
+pytest-asyncio
+pytest-env
+pytest-randomly
+httpx
+requests

@@ -1,0 +1,18 @@
+image: python:3.10.10
+pipelines:
+  branches:
+    sunil-dev:
+    - step:
+        name: Install requirements
+        caches:
+          - pip
+        script:
+          - pip install -r requirements.txt
+    - step:
+        name: Build docker image
+        script:
+          - docker build --secret id=DB_NAME --secret id=DB_URL --secret id=JWT_SECRET_KEY --secret id=JWT_SECRET_KEY_ID_RSA_PASSWORD --secret id=JWT_ACCESS_TOKEN_SECRET_KEY_PRIVATE_KEY --secret id=JWT_ACCESS_TOKEN_SECRET_KEY_PUBLIC_KEY --secret id=JWT_REFRESH_TOKEN_SECRET_KEY_PRIVATE_KEY --secret id=JWT_REFRESH_TOKEN_SECRET_KEY_PUBLIC_KEY --secret id=ARMS_API_URL --secret id=CUPEJOBS_UI_URL -t $DOCKER_HUB_USER/cupejobs-renew_api:latest .
+          - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
+          - docker push $DOCKER_HUB_USER/cupejobs-renew_api:latest
+        services:
+          - docker

@@ -1,0 +1,54 @@
+
+services:
+  cupejobs-renew-api-service:
+    environment:
+      BITBUCKET_USERNAME: ${BITBUCKET_USERNAME}
+      BITBUCKET_APP_PASSWORD: ${BITBUCKET_APP_PASSWORD}
+      CUPEJOBS_PORT: ${CUPEJOBS_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_URL: ${DB_URL}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_SECRET_KEY_ID_RSA_PASSWORD: ${JWT_SECRET_KEY_ID_RSA_PASSWORD}
+      JWT_ACCESS_TOKEN_SECRET_KEY_PRIVATE_KEY: ${JWT_ACCESS_TOKEN_SECRET_KEY_PRIVATE_KEY}
+      JWT_ACCESS_TOKEN_SECRET_KEY_PUBLIC_KEY: ${JWT_ACCESS_TOKEN_SECRET_KEY_PUBLIC_KEY}
+      JWT_REFRESH_TOKEN_SECRET_KEY_PRIVATE_KEY: ${JWT_REFRESH_TOKEN_SECRET_KEY_PRIVATE_KEY}
+      JWT_REFRESH_TOKEN_SECRET_KEY_PUBLIC_KEY: ${JWT_REFRESH_TOKEN_SECRET_KEY_PUBLIC_KEY}
+      ARMS_API_URL: ${ARMS_API_URL}
+      CUPEJOBS_UI_URL: ${CUPEJOBS_UI_URL}
+    build:
+      context: https://${BITBUCKET_USERNAME}:${BITBUCKET_APP_PASSWORD}@bitbucket.org/eaas1/cupejobs-renew_api.git#sunil-dev
+    container_name: cupejobs-renew-api-container
+    ports:
+      - "${CUPEJOBS_PORT}:${CUPEJOBS_PORT}"
+    restart: "no"
+    depends_on:
+      - mongodb-service
+      - arms-renew-api-service
+  mongodb-service:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_APP_USERNAME: ${MONGO_APP_USERNAME}
+      MONGO_APP_PASSWORD: ${MONGO_APP_PASSWORD}
+    volumes:
+      - ${MONGO_VOLUME_ROOT}/docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ${MONGO_VOLUME_ROOT}/mongodb-data:/data/db
+    ports:
+      - 27017:27017
+    container_name: mongo-container
+    restart: "always"
+  arms-renew-api-service:
+    environment:
+      ARMS_PORT: ${ARMS_PORT}
+      BITBUCKET_USERNAME: ${BITBUCKET_USERNAME}
+      BITBUCKET_APP_PASSWORD: ${BITBUCKET_APP_PASSWORD}
+      BATCH_USER_MID: ${BATCH_USER_MID}
+      ORACLE_DB_URL: ${ORACLE_DB_URL}
+    build:
+      context: https://${BITBUCKET_USERNAME}:${BITBUCKET_APP_PASSWORD}@bitbucket.org/eaas1/arms-renew_api.git#sunil-dev
+    container_name: arms-renew-api-container
+    ports:
+      - "${ARMS_PORT}:${ARMS_PORT}"
+    restart: "no"
