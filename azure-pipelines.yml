@@ -12,8 +12,5 @@ pool:
 steps:
 - script: echo Hello, world!
     pip install -r requirements.txt
-  displayName: 'Run a one-line script'
-
-- script: |
     python -m pytest tests/
   displayName: 'pytest'
