@@ -22,5 +22,6 @@ pytest
 pytest-asyncio
 pytest-env
 pytest-randomly
+pytest-azurepipelines
 httpx
 requests
