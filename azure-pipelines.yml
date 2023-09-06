@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script:
+- script: |
     python3 -m pip install --upgrade pip
     python3 -m pip install pip-tools
     python3 -m piptools compile
