@@ -12,15 +12,15 @@ pool:
     - agent.name -equals mcbride-mac-mini
 
 variables:
-  IMAGE_REGISTRY_CONNECTION: 'ACR Demo'
-  IMAGE_REGISTRY: 'ADODemo'
+  IMAGE_REGISTRY_CONNECTION: 'CUPE Jobs Container Registry'
+  IMAGE_REGISTRY: 'CUPE Jobs Repository'
   IMAGE_REPOSITORY: 'adodemo.azurecr.io'
   TAG: '$(Build.BuildId)'
 
 stages:
 - stage: UnitTests
   jobs:
-  - job: UnitTests
+  - job: PytestJob
     steps:
     - task: DownloadSecureFile@1
       inputs:
