@@ -18,7 +18,7 @@ variables:
   TAG: '$(Build.BuildId)'
 
 stages:
-- stage: BuildApp
+- stage: UnitTests
   jobs:
   - job: UnitTests
     steps:
@@ -36,7 +36,10 @@ stages:
         python3 -m pip install pip-tools
         python3 -m piptools compile
         pip install -r requirements.txt
-        pytest
+        pytest  
+
+- stage: BuildApp
+  jobs:
   - job: BuildPushImage
     steps:
     - task: Docker@2
