@@ -20,7 +20,7 @@ variables:
 stages:
 - stage: BuildApp
   jobs:
-  - job: Unit Tests
+  - job: UnitTests
     steps:
     - task: DownloadSecureFile@1
       inputs:
