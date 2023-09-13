@@ -51,7 +51,7 @@ stages:
         TargetFolder: $(Build.SourcesDirectory)
       displayName: 'Copy .env.test'
     - script: |
-        pip install pytest pytest-azurepipelines
+        pip install pytest pytest-mock pytest-azurepipelines
         pytest
 
   # - job: PytestJob
