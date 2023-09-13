@@ -26,8 +26,8 @@ stages:
 - stage: Build
   displayName: Build and push stage
   jobs:
-  - job: Build
-    displayName: Build
+  - job: BuildDependencies
+    displayName: Build dependencies
     # pool:
     #   vmImage: $(vmImageName)
     steps:
@@ -44,20 +44,47 @@ stages:
     # - script: |
     #     pip install pytest pytest-azurepipelines
     #     pytest
+    # #   displayName: 'pytest dependencies'
+    # - task: DownloadSecureFile@1
+    #   inputs:
+    #     secureFile: '.env.test'
+    # - task: CopyFiles@2
+    #   inputs:
+    #     SourceFolder: $(Agent.TempDirectory)
+    #     Contents: '**\.env.test'
+    #     TargetFolder: $(Build.SourcesDirectory)
+    #   displayName: 'Copy .env.test'
+    # - script: |
+    #     pip install pytest pytest-azurepipelines
+    #     pytest
     #   displayName: 'pytest dependencies'
-    - task: DownloadSecureFile@1
-      inputs:
-        secureFile: '.env.test'
-    - task: CopyFiles@2
-      inputs:
-        SourceFolder: $(Agent.TempDirectory)
-        Contents: '**\.env.test'
-        TargetFolder: $(Build.SourcesDirectory)
-      displayName: 'Copy .env.test'
-    - script: |
-        pip install pytest pytest-azurepipelines
-        pytest
-      displayName: 'pytest dependencies'
+    # - task: Docker@2
+    #   displayName: Build and push an image to container registry
+    #   inputs:
+    #     command: buildAndPush
+    #     repository: $(imageRepository)
+    #     dockerfile: $(dockerfilePath)
+    #     containerRegistry: $(dockerRegistryServiceConnection)
+    #     tags: |
+    #       $(tag)
+  - job: Pytest
+    displayName: 'pytest dependencies'
+    steps:
+      - task: DownloadSecureFile@1
+        inputs:
+          secureFile: '.env.test'
+      - task: CopyFiles@2
+        inputs:
+          SourceFolder: $(Agent.TempDirectory)
+          Contents: '**\.env.test'
+          TargetFolder: $(Build.SourcesDirectory)
+        displayName: 'Copy .env.test'
+      - script: |
+          pip install pytest pytest-azurepipelines
+          pytest
+  - job: DockerBuildJob
+    displayName: 'docker build display name'
+    steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
