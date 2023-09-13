@@ -19,15 +19,32 @@ variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
+pool:
+  vmImage: $(vmImageName)
+
 stages: 
 - stage: Build
   displayName: Build and push stage
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: $(vmImageName)
+    # pool:
+    #   vmImage: $(vmImageName)
     steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.10'
+      displayName: 'Use Python 3.10'
+
+    - script: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      displayName: 'Install dependencies'
+
+    - script: |
+        pip install pytest pytest-azurepipelines
+        pytest
+      displayName: 'pytest'
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
