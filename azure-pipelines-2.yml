@@ -41,21 +41,34 @@ stages:
         pip install -r requirements.txt
       displayName: 'Install dependencies'
 
-  - job: PytestJob
-    displayName: 'pytest dependencies'
-    steps:
-      - task: DownloadSecureFile@1
-        inputs:
-          secureFile: '.env.test'
-      - task: CopyFiles@2
-        inputs:
-          SourceFolder: $(Agent.TempDirectory)
-          Contents: '**\.env.test'
-          TargetFolder: $(Build.SourcesDirectory)
-        displayName: 'Copy .env.test'
-      - script: |
-          pip install pytest pytest-asyncio pytest-env pytest-mock pytest-randomly pytest-azurepipelines
-          pytest
+    - task: DownloadSecureFile@1
+      inputs:
+        secureFile: '.env.test'
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: $(Agent.TempDirectory)
+        Contents: '**\.env.test'
+        TargetFolder: $(Build.SourcesDirectory)
+      displayName: 'Copy .env.test'
+    - script: |
+        pip install pytest pytest-azurepipelines
+        pytest
+
+  # - job: PytestJob
+  #   displayName: 'pytest dependencies'
+  #   steps:
+  #     - task: DownloadSecureFile@1
+  #       inputs:
+  #         secureFile: '.env.test'
+  #     - task: CopyFiles@2
+  #       inputs:
+  #         SourceFolder: $(Agent.TempDirectory)
+  #         Contents: '**\.env.test'
+  #         TargetFolder: $(Build.SourcesDirectory)
+  #       displayName: 'Copy .env.test'
+  #     - script: |
+  #         pip install pytest pytest-asyncio pytest-env pytest-mock pytest-randomly pytest-azurepipelines
+  #         pytest
           
   # - job: DockerBuildJob
   #   displayName: 'docker build display name'
