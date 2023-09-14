@@ -12,9 +12,8 @@ pool:
     - agent.name -equals mcbride-mac-mini
 
 variables:
-  IMAGE_REGISTRY_CONNECTION: 'CUPE Jobs Container Registry'
-  IMAGE_REGISTRY: 'CUPE Jobs Repository'
-  IMAGE_REPOSITORY: 'adodemo.azurecr.io'
+  IMAGE_REGISTRY_CONNECTION: 'cb4d46bf-14c3-49f3-85bf-56bb795ff580'
+  IMAGE_REPOSITORY: 'sunilyorkcupejobsrenewapi'
   TAG: '$(Build.BuildId)'
 
 stages:
@@ -50,8 +49,8 @@ stages:
 #     steps:
 #     - task: Docker@2
 #       inputs:
-#         containerRegistry: '$(IMAGE_REGISTRY_CONNECTION)'
-#         repository: '$(IMAGE_REPOSITORY)'
+#         containerRegistry: $(IMAGE_REGISTRY_CONNECTION)
+#         repository: $(IMAGE_REPOSITORY)
 #         command: 'buildAndPush'
-#         Dockerfile: '**/Dockerfile'
+#         dockerfile: '**/Dockerfile'
 #         tags: '$(TAG)'
