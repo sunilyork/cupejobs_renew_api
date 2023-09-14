@@ -21,8 +21,12 @@ stages:
 - stage: Build
   displayName: Build stage
   jobs:
-  - job: PytestJob
+  - job: BuildJob
     steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(python.version)'
+      displayName: 'Use Python $(python.version)'
     - task: DownloadSecureFile@1
       inputs:
         secureFile: '.env.test'
@@ -39,9 +43,10 @@ stages:
         pip install -r requirements.txt
         pytest  
 
-# - stage: BuildApp
+# - stage: Docker
+#   displayName: Docker stage 
 #   jobs:
-#   - job: BuildPushImage
+#   - job: DockerPushImage
 #     steps:
 #     - task: Docker@2
 #       inputs:
