@@ -18,7 +18,7 @@ variables:
 
 stages:
 - stage: Build
-  displayName: Build stage
+  displayName: Install dependencies and run unit tests
   jobs:
   - job: BuildJob
     steps:
@@ -40,17 +40,18 @@ stages:
         python3 -m pip install pip-tools
         python3 -m piptools compile
         pip install -r requirements.txt
+        pip install pytest-azurepipelines
         pytest  
 
-# - stage: Docker
-#   displayName: Docker stage 
-#   jobs:
-#   - job: DockerPushImage
-#     steps:
-#     - task: Docker@2
-#       inputs:
-#         containerRegistry: $(IMAGE_REGISTRY_CONNECTION)
-#         repository: $(IMAGE_REPOSITORY)
-#         command: 'buildAndPush'
-#         dockerfile: '**/Dockerfile'
-#         tags: '$(TAG)'
+- stage: Docker
+  displayName: Docker stage 
+  jobs:
+  - job: DockerPushImage
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: $(IMAGE_REGISTRY_CONNECTION)
+        repository: $(IMAGE_REPOSITORY)
+        command: 'buildAndPush'
+        dockerfile: '**/Dockerfile'
+        tags: '$(TAG)'
