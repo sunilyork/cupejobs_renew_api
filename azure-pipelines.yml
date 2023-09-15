@@ -6,15 +6,20 @@
 trigger:
 - main
 
-pool: 
-   name: Default
-   demands:
-    - agent.name -equals mcbride-mac-mini
-
 variables:
   IMAGE_REGISTRY_CONNECTION: 'cb4d46bf-14c3-49f3-85bf-56bb795ff580'
   IMAGE_REPOSITORY: 'sunilyorkcupejobsrenewapi'
   TAG: '$(Build.BuildId)'
+  
+  # Python version: 3.10.9
+  PYTHON_VERSION: '3.10.9'
+
+  # Agent VM image name
+  VM_IMAGE: 'ubuntu-latest'
+
+pool:
+  # Agent VM image name
+  vmImage: $(VM_IMAGE)
 
 stages:
 - stage: Build
@@ -24,8 +29,8 @@ stages:
     steps:
     - task: UsePythonVersion@0
       inputs:
-        versionSpec: '$(python.version)'
-      displayName: 'Use Python $(python.version)'
+        versionSpec: '$(PYTHON_VERSION)'
+      displayName: 'Use Python $(PYTHON_VERSION)'
     - task: DownloadSecureFile@1
       inputs:
         secureFile: '.env.test'
