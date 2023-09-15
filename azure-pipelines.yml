@@ -38,9 +38,9 @@ stages:
         versionSpec: $(pythonVersion)
       displayName: 'Use Python $(pythonVersion)'
 
-
     - script: 
-        python -m pip install flake8
+        black --check .
+        flake8 .
       displayName: 'Linting - Style guide enforcement'
       
     - script: |
