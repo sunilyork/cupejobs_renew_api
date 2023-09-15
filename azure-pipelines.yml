@@ -41,10 +41,13 @@ stages:
     - script: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+      displayName: 'Install dependencies'
+
+    - script: 
         black --check .
         flake8 .
-      displayName: 'Install dependencies, Linting'
-
+      displayName: 'Linting - Style guide enforcement'
+    
     - task: DownloadSecureFile@1
       inputs:
         secureFile: '.env.test'
