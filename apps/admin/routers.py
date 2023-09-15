@@ -61,9 +61,7 @@ async def create_nra_feeds(request, fiscal_year):
     for acad_session in ["S", "FW"]:
         for nra_type in ["N", "C"]:
             try:
-                created_nra = await create_nra_feed(
-                    request, fiscal_year, acad_session, nra_type
-                )
+                await create_nra_feed(request, fiscal_year, acad_session, nra_type)
             except HTTPException as e:
                 logger.error(
                     f"HttpException: {e} for fiscal year {fiscal_year}, acad_session {acad_session}, nra_type {nra_type}"
