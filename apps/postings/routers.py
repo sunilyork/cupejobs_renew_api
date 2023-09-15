@@ -77,7 +77,7 @@ async def create_postings(request, fiscal_year):
         data = send_request(url)
         data["name"] = postings_feed
         if (
-            result := await request.app.mongodb["postings"].find_one_and_replace(
+            await request.app.mongodb["postings"].find_one_and_replace(
                 {"name": postings_feed}, data, {"_id": 0}
             )
         ) is not None:

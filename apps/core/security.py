@@ -24,7 +24,7 @@ def create_access_token(
         {
             "exp": expire,
             "iat": datetime.utcnow(),
-            "iss": f"users/api/user/me",
+            "iss": "users/api/user/me",
         }
     )
 
@@ -65,7 +65,7 @@ def create_refresh_token(
         {
             "exp": expire,
             "iat": datetime.utcnow(),
-            "iss": f"users/api/user/me",
+            "iss": "users/api/user/me",
         }
     )
 

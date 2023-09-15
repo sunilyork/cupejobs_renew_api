@@ -30,6 +30,7 @@ async def initialize_database(
     start_fiscal_year: int = Query(default=None, description="Year format: YYYY"),
     end_fiscal_year: int = Query(default=None, description="Year format: YYYY"),
 ):
+    start = time.perf_counter()
     await upsert_faculty_department_emails(request)
     await upsert_cupe_faculty_list(request)
     await upsert_cupe_faculty_units(request)
@@ -41,6 +42,11 @@ async def initialize_database(
     )
 
     await init_nra(request, current_fiscal_year, start_fiscal_year, end_fiscal_year)
+    end = time.perf_counter()
+    elapsed_time = (end - start) / 60
+    logger.info(
+        f"Total time taken {start_fiscal_year} - {end_fiscal_year} ---> {round(elapsed_time)} minutes."
+    )
 
 
 async def create_postings_feed(request, current_fiscal_year):

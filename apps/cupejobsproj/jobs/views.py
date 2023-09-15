@@ -56,7 +56,7 @@ NOT_IN_BLANKET = {
 
 def isSubDict(subDict, dictionary):
     for key in subDict.keys():
-        if (not key in dictionary) or (not subDict[key] == dictionary[key]):
+        if (key not in dictionary) or (not subDict[key] == dictionary[key]):
             return False
     return True
 
@@ -344,7 +344,7 @@ async def nras(request: Request, _nra: str):
     if not (faculty or unit or academic_year or term):
         raise HTTPException(status_code=404, detail="Not found.")
 
-    if not faculty in FACULTIES:
+    if faculty not in FACULTIES:
         raise HTTPException(status_code=404, detail="Not found.")
 
     for document in (
@@ -411,7 +411,7 @@ async def cssps(request: Request, _cssps: str):
     if not (faculty or unit or academic_year or term):
         raise HTTPException(status_code=404, detail="Not found.")
 
-    if not faculty in FACULTIES:
+    if faculty not in FACULTIES:
         raise HTTPException(status_code=404, detail="Not found.")
 
     for document in (

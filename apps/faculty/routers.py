@@ -69,7 +69,7 @@ async def get_faculty_department_emails(request: Request):
 
 
 @router.get("/cupe_faculty_units", response_description="Get faculty units.")
-async def read_cupe_faculty_list(request: Request):
+async def read_cupe_faculty_units(request: Request):
     if (
         result := await request.app.mongodb["faculty"].find_one(
             {"name": "cupe_faculty_units"}

@@ -30,7 +30,7 @@ async def get_cupe1assns(
         return JSONResponse(status_code=status.HTTP_200_OK, content=result)
     return JSONResponse(
         status_code=status.HTTP_404_NOT_FOUND,
-        content={"detail": f"cupe1assns feed not found."},
+        content={"detail": "cupe1assns feed not found."},
     )
 
 
@@ -58,7 +58,7 @@ async def create_cupe1_assignments(request):
     data = send_request(url)
     data["name"] = cupe1_assns_feed
     if (
-        result := await request.app.mongodb["cupe1assns"].find_one_and_replace(
+        await request.app.mongodb["cupe1assns"].find_one_and_replace(
             {"name": cupe1_assns_feed}, data, {"_id": 0}
         )
     ) is not None:

@@ -1,0 +1,5 @@
+[flake8]
+
+# ignore line length
+ignore = E501, W503, W605
+

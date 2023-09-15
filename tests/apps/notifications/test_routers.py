@@ -92,8 +92,8 @@ async def test_create_user_notification_should_update_with_new_notification(
     result = json.loads(response.__dict__["_content"].decode("utf-8"))
     assert result["notification"]["notification_id"] == "test3"
     assert result["notification"]["notification_value"] == "new_notification"
-    assert result["notification"]["read"] == False
-    assert result["notification"]["submission_status"] == False
+    assert result["notification"]["read"] is False
+    assert result["notification"]["submission_status"] is False
 
 
 @pytest.mark.asyncio
