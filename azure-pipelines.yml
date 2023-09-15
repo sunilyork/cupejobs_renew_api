@@ -1,62 +1,59 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+— works
+
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
 - main
 
+resources:
+- repo: self
+
 variables:
-  IMAGE_REGISTRY_CONNECTION: 'cb4d46bf-14c3-49f3-85bf-56bb795ff580'
-  IMAGE_REPOSITORY: 'sunilyorkcupejobsrenewapi'
-  TAG: '$(Build.BuildId)'
-  
-  # Python version: 3.10.9
-  PYTHON_VERSION: '3.10.9'
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'cb4d46bf-14c3-49f3-85bf-56bb795ff580'
+  imageRepository: 'sunilyorkcupejobsrenewapi'
+  containerRegistry: 'sunilmanikonregistry.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
 
   # Agent VM image name
-  VM_IMAGE: 'ubuntu-latest'
+  vmImageName: 'ubuntu-latest'
 
 pool:
-  # Agent VM image name
-  vmImage: $(VM_IMAGE)
+  vmImage: $(vmImageName)
 
-stages:
+stages: 
 - stage: Build
-  displayName: Install dependencies and run unit tests
+  displayName: Build and push stage
   jobs:
-  - job: BuildJob
+  - job: Build
+    displayName: Build
+    # pool:
+    #   vmImage: $(vmImageName)
     steps:
     - task: UsePythonVersion@0
       inputs:
-        versionSpec: '$(PYTHON_VERSION)'
-      displayName: 'Use Python $(PYTHON_VERSION)'
-    - task: DownloadSecureFile@1
-      inputs:
-        secureFile: '.env.test'
-    - task: CopyFiles@2
-      inputs:
-        SourceFolder: $(Agent.TempDirectory)
-        Contents: '**\.env.test'
-        TargetFolder: $(Build.SourcesDirectory)
-      displayName: 'pytest'
-    - script: |
-        python3 -m pip install --upgrade pip
-        python3 -m pip install pip-tools
-        python3 -m piptools compile
-        pip install -r requirements.txt
-        pip install pytest-azurepipelines
-        pytest  
+        versionSpec: '3.10'
+      displayName: 'Use Python 3.10'
 
-- stage: Docker
-  displayName: Docker stage 
-  jobs:
-  - job: DockerPushImage
-    steps:
+    - script: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      displayName: 'Install dependencies'
+
+    - script: |
+        pip install pytest pytest-azurepipelines
+        pytest
+      displayName: 'pytest'
     - task: Docker@2
+      displayName: Build and push an image to container registry
       inputs:
-        containerRegistry: $(IMAGE_REGISTRY_CONNECTION)
-        repository: $(IMAGE_REPOSITORY)
-        command: 'buildAndPush'
-        dockerfile: '**/Dockerfile'
-        tags: '$(TAG)'
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
