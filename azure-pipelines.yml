@@ -86,6 +86,7 @@ stages:
 
     - task: Docker@2
       displayName: Build and push an image to container registry
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
