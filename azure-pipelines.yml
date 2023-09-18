@@ -73,22 +73,8 @@ stages:
     # Run tests, output test results in JUnit format, and output code coverage results in Cobertura XML format
     - script: |
         pip install pytest pytest-mock pytest-azurepipelines
-        pip install pytest-cov
-        pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
+        pytest
       displayName: 'pytest'
-
-    # Publish test results
-    - task: PublishTestResults@2
-      condition: succeededOrFailed()
-      inputs:
-        testResultsFiles: '**/test-*.xml'
-        testRunTitle: 'Publish test results for Python $(python.version)'
-
-    # Publish code coverage results to the server
-    - task: PublishCodeCoverageResults@1
-      inputs:
-        codeCoverageTool: Cobertura
-        summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
 
     - task: DeleteFiles@1
       inputs:
