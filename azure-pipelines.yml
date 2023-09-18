@@ -10,7 +10,8 @@ resources:
 - repo: self
 
 variables:
-  containerRegistry: 'sunilmanikonregistry.azurecr.io'
+  # containerRegistry: 'sunilmanikonregistry.azurecr.io'
+  containerRegistry: 'sunilmanikonregistry'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   imageName: 'cupejobs-renew_api' 
 
