@@ -12,7 +12,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'cb4d46bf-14c3-49f3-85bf-56bb795ff580'
-  imageRepository: 'sunilyorkcupejobsrenewapi'
+  imageName: 'sunilyorkcupejobsrenewapi'
   containerRegistry: 'sunilmanikonregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   
@@ -86,7 +86,7 @@ stages:
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
+        repository: $(imageName)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
