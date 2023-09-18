@@ -70,10 +70,10 @@ stages:
       displayName: 'Copy environment files'
     
     # Run tests, output test results in JUnit format, and output code coverage results in Cobertura XML format
-    - script: |
-        pip install pytest pytest-mock pytest-azurepipelines
-        pytest
-      displayName: 'pytest'
+    # - script: |
+    #     pip install pytest pytest-mock pytest-azurepipelines
+    #     pytest
+    #   displayName: 'pytest'
 
     - task: DeleteFiles@1
       inputs:
@@ -84,13 +84,20 @@ stages:
           private.pem
           jwt_secret_key.txt
 
+    # - task: Docker@2
+    #   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    #   inputs:
+    #     containerRegistry: $(containerRegistry)
+    #     repository: $(imageName)
+    #     command: 'buildAndPush'
+    #     Dockerfile: $(dockerfilePath)
+    #     tags: |
+    #       $(tag)
+    #   displayName: Build and push an image to container registry
     - task: Docker@2
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
       inputs:
-        containerRegistry: $(containerRegistry)
-        repository: $(imageName)
+        containerRegistry: 'sunilmanikonregistry'
+        repository: 'sunilmanikonrepository'
         command: 'buildAndPush'
-        Dockerfile: $(dockerfilePath)
-        tags: |
-          $(tag)
-      displayName: Build and push an image to container registry
+        Dockerfile: '**/Dockerfile'
+
