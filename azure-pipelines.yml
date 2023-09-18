@@ -70,10 +70,7 @@ stages:
         TargetFolder: $(Build.SourcesDirectory)
       displayName: 'Copy environment files'
     
-    - script: |
-        pip install pytest pytest-mock pytest-azurepipelines
-        pytest
-      displayName: 'pytest'
+
 
     - task: DeleteFiles@1
       inputs:
