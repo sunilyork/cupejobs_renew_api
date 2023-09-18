@@ -96,7 +96,7 @@ stages:
     #   displayName: Build and push an image to container registry
     - task: Docker@2
       inputs:
-        containerRegistry: 'sunilmanikonregistry'
+        containerRegistry: $(containerRegistry)
         # repository: 'sunilmanikonrepository'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
