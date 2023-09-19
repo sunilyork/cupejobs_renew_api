@@ -10,17 +10,16 @@ resources:
 - repo: self
 
 variables:
-  containerRegistry: 'sunilmanikonregistry.azurecr.io'
+  # containerRegistry: 'sunilmanikonregistry.azurecr.io'
   # containerRegistry: 'sunilmanikonregistry'
+  dockerRegistryServiceConnection: 'sunilmanikonserviceconnection'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  imageName: 'cupejobs-renew_api' 
-
+  imageRepository: 'cupejobs-renew_api' 
+  tag: '$(Build.BuildId)'
   
   ##[warning]Specifying an exact version is not recommended on Microsoft-Hosted agents. Patch versions of Python can be replaced by new ones on Hosted agents without notice, which will cause builds to fail unexpectedly. It is recommended to specify only major or major and minor version (Example: `3` or `3.9`)
   # Python version: 3.10
   pythonVersion: '3.10'
-  
-  tag: '$(Build.BuildId)'
 
   # Agent VM image name
   vmImageName: 'ubuntu-22.04'
@@ -95,10 +94,14 @@ stages:
     #     tags: |
     #       $(tag)
     #   displayName: Build and push an image to container registry
+
     - task: Docker@2
+      displayName: Build and push an image to azure container registry
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
       inputs:
         containerRegistry: $(containerRegistry)
-        repository: 'cupejobscontainerrepository'
+        repository: $(imageRepository)
         command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
-
+        Dockerfile: $(dockerfilePath)
+        tags: |
+          $(tag)
