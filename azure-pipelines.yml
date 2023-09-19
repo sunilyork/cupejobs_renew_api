@@ -10,8 +10,8 @@ resources:
 - repo: self
 
 variables:
-  # containerRegistry: 'sunilmanikonregistry.azurecr.io'
-  containerRegistry: 'sunilmanikonregistry'
+  containerRegistry: 'sunilmanikonregistry.azurecr.io'
+  # containerRegistry: 'sunilmanikonregistry'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   imageName: 'cupejobs-renew_api' 
 
@@ -97,7 +97,7 @@ stages:
     #   displayName: Build and push an image to container registry
     - task: Docker@2
       inputs:
-        containerRegistry: 'sunilmanikonregistry'
+        containerRegistry: $(containerRegistry)
         repository: 'cupejobscontainerrepository'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
