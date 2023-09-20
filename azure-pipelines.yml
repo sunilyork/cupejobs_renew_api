@@ -22,14 +22,14 @@ variables:
   pythonVersion: '3.10'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-22.04'
+  # vmImageName: 'ubuntu-22.04'
 
 # Self-hosted pool
-pool: sunilmanikon
+  vmImageName: sunilmanikon
 
 # Microsoft hosted pool
-# pool:
-#   vmImage: $(vmImageName)
+pool:
+  vmImage: $(vmImageName)
 
 stages: 
 - stage: Build
