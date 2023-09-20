@@ -46,15 +46,15 @@ stages:
           addToPath: true
           architecture: 'x86'
 
-    # - script: |
-    #     python -m pip install --upgrade pip
-    #     pip install -r requirements.txt
-    #   displayName: 'Install dependencies'
+      - script: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        displayName: 'Install dependencies'
 
-    # - script: |
-    #     black --check .
-    #     flake8 .
-    #   displayName: 'Linting - Style guide enforcement'
+      - script: |
+          black --check .
+          flake8 .
+        displayName: 'Linting - Style guide enforcement'
     
     # - task: DownloadSecureFile@1
     #   inputs:
@@ -113,9 +113,9 @@ stages:
       #     tags: |
       #       $(tag)
 
-      - task: Docker@2
-        inputs:
-          containerRegistry: 'sunilmanikonserviceconnection'
-          # repository: 'cupejobsrenewapi'
-          command: 'buildAndPush'
-          Dockerfile: '**/Dockerfile'
+      # - task: Docker@2
+      #   inputs:
+      #     containerRegistry: 'sunilmanikonserviceconnection'
+      #     # repository: 'cupejobsrenewapi'
+      #     command: 'buildAndPush'
+      #     Dockerfile: '**/Dockerfile'
