@@ -120,11 +120,5 @@ stages:
           repository: 'cupejobsrenewapi'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
-      # - task: Docker@2
-      #   inputs:
-      #     containerRegistry: 'sunilmanikonserviceconnection'
-      #     repository: 'sunilmanikoncontainerrepository'
-      #     command: 'build'
-      #     Dockerfile: '**/Dockerfile'
-      #     addPipelineData: false
-      #     addBaseImageData: false
+          tags: |
+            $(tag)
