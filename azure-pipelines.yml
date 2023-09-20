@@ -30,7 +30,7 @@ variables:
 
 # Self-hosted pool
 pool:
-  name: sunilmanikon
+  name: 'sunilmanikon'
 
 stages: 
 - stage: Build
