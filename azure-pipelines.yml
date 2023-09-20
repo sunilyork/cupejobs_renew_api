@@ -102,13 +102,20 @@ stages:
     #       $(tag)
     #   displayName: Build and push an image to container registry
 
+      # - task: Docker@2
+      #   displayName: Build and push an image to azure container registry
+      #   # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+      #   inputs:
+      #     containerRegistry: $(dockerRegistryServiceConnection)
+      #     repository: $(imageRepository)
+      #     command: 'buildAndPush'
+      #     Dockerfile: $(dockerfilePath)
+      #     tags: |
+      #       $(tag)
+
       - task: Docker@2
-        displayName: Build and push an image to azure container registry
-        # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
         inputs:
-          containerRegistry: $(dockerRegistryServiceConnection)
-          repository: $(imageRepository)
+          containerRegistry: 'sunilmanikonserviceconnection'
+          repository: 'cupejobsrenewapi'
           command: 'buildAndPush'
-          Dockerfile: $(dockerfilePath)
-          tags: |
-            $(tag)
+          Dockerfile: '**/Dockerfile'
