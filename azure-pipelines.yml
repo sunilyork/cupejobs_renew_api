@@ -25,11 +25,11 @@ variables:
   vmImageName: 'ubuntu-22.04'
 
 # Self-hosted pool
-# pool: Default
+pool: sunilmanikon
 
 # Microsoft hosted pool
-pool:
-  vmImage: $(vmImageName)
+# pool:
+#   vmImage: $(vmImageName)
 
 stages: 
 - stage: Build
