@@ -25,7 +25,7 @@ variables:
   vmImageName: 'ubuntu-22.04'
 
 # Self-hosted pool
-pool: sunilmanikon
+pool: Default
 
 # Microsoft hosted pool
 # pool:
