@@ -44,13 +44,20 @@ stages:
     #     versionSpec: $(pythonVersion)
     #     disableDownloadFromRegistry: true
     #   displayName: 'Use Python $(pythonVersion)'
-      
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '3.10'
-        disableDownloadFromRegistry: true
-        addToPath: true
-        architecture: 'x64'
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.10.9'
+          disableDownloadFromRegistry: true
+          addToPath: true
+          architecture: 'x86'
+
+    # - task: UsePythonVersion@0
+    #   inputs:
+    #     versionSpec: '3.10'
+    #     disableDownloadFromRegistry: true
+    #     addToPath: true
+    #     architecture: 'x64'
+
 
     # - script: |
     #     python -m pip install --upgrade pip
