@@ -114,17 +114,17 @@ stages:
       #     tags: |
       #       $(tag)
 
-      # - task: Docker@2
-      #   inputs:
-      #     containerRegistry: 'sunilmanikonserviceconnection'
-      #     # repository: 'cupejobsrenewapi'
-      #     command: 'buildAndPush'
-      #     Dockerfile: '**/Dockerfile'
       - task: Docker@2
         inputs:
           containerRegistry: 'sunilmanikonserviceconnection'
-          repository: 'sunilmanikoncontainerrepository'
-          command: 'build'
+          # repository: 'cupejobsrenewapi'
+          command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
-          addPipelineData: false
-          addBaseImageData: false
+      # - task: Docker@2
+      #   inputs:
+      #     containerRegistry: 'sunilmanikonserviceconnection'
+      #     repository: 'sunilmanikoncontainerrepository'
+      #     command: 'build'
+      #     Dockerfile: '**/Dockerfile'
+      #     addPipelineData: false
+      #     addBaseImageData: false
