@@ -39,18 +39,12 @@ stages:
   - job: Build
     displayName: Build
     steps:
-    # - task: UsePythonVersion@0
-    #   inputs:
-    #     versionSpec: $(pythonVersion)
-    #     disableDownloadFromRegistry: true
-    #   displayName: 'Use Python $(pythonVersion)'
       - task: UsePythonVersion@0
         inputs:
           versionSpec: '3.10.13'
           disableDownloadFromRegistry: true
           addToPath: true
           architecture: 'x86'
-
 
     # - script: |
     #     python -m pip install --upgrade pip
@@ -110,7 +104,7 @@ stages:
 
       - task: Docker@2
         displayName: Build and push an image to azure container registry
-        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+        # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
         inputs:
           containerRegistry: $(dockerRegistryServiceConnection)
           repository: $(imageRepository)
