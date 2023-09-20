@@ -19,7 +19,7 @@ variables:
   
   ##[warning]Specifying an exact version is not recommended on Microsoft-Hosted agents. Patch versions of Python can be replaced by new ones on Hosted agents without notice, which will cause builds to fail unexpectedly. It is recommended to specify only major or major and minor version (Example: `3` or `3.9`)
   # Python version: 3.10
-  pythonVersion: '3.10'
+  pythonVersion: 3.10
 
   # Agent VM image name
   # vmImageName: 'ubuntu-22.04'
