@@ -24,12 +24,13 @@ variables:
   # Agent VM image name
   # vmImageName: 'ubuntu-22.04'
 
-# Self-hosted pool
-pool: 'sunilmanikon'
-
 # Microsoft hosted pool
 # pool:
 #   vmImage: $(vmImageName)
+
+# Self-hosted pool
+pool:
+  name: sunilmanikon
 
 stages: 
 - stage: Build
