@@ -22,7 +22,7 @@ variables:
   pythonVersion: 3.10.9
 
   # Agent VM image name
-  vmImageName: 'ubuntu-22.04'
+  # vmImageName: 'ubuntu-22.04'
 
 # Microsoft hosted pool
 # pool:
@@ -39,12 +39,19 @@ stages:
   - job: Build
     displayName: Build
     steps:
+    # - task: UsePythonVersion@0
+    #   inputs:
+    #     versionSpec: $(pythonVersion)
+    #     disableDownloadFromRegistry: true
+    #   displayName: 'Use Python $(pythonVersion)'
+      
     - task: UsePythonVersion@0
       inputs:
-        versionSpec: $(pythonVersion)
+        versionSpec: '3.x'
         disableDownloadFromRegistry: true
-      displayName: 'Use Python $(pythonVersion)'
-      
+        addToPath: true
+        architecture: 'x64'
+
     # - script: |
     #     python -m pip install --upgrade pip
     #     pip install -r requirements.txt
