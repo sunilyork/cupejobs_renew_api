@@ -115,11 +115,3 @@ stages:
       #     tags: |
       #       $(tag)
 
-      - task: Docker@2
-        inputs:
-          containerRegistry: 'sunilmanikondockerregistryserviceconnection'
-          repository: 'cupejobsrenewapi'
-          command: 'buildAndPush'
-          Dockerfile: '**/Dockerfile'
-          tags: |
-            $(tag)
