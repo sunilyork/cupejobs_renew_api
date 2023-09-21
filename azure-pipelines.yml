@@ -116,7 +116,7 @@ stages:
 
       - task: Docker@2
         inputs:
-          containerRegistry: 'sunilmanikonserviceconnectionname'
+          containerRegistry: 'sunilmanikondockerregistry'
           repository: 'cupejobsrenewapi'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
