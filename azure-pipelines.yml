@@ -10,6 +10,7 @@ trigger:
 resources:
 - repo: self
 
+
 variables:
   # containerRegistry: 'sunilmanikonregistry.azurecr.io'
   # containerRegistry: 'sunilmanikonregistry'
@@ -20,7 +21,7 @@ variables:
   
   ##[warning]Specifying an exact version is not recommended on Microsoft-Hosted agents. Patch versions of Python can be replaced by new ones on Hosted agents without notice, which will cause builds to fail unexpectedly. It is recommended to specify only major or major and minor version (Example: `3` or `3.9`)
   # Python version: 3.10
-  pythonVersion: 3.10.13
+  pythonVersion: '3.10.13'
 
   # Agent VM image name
   vmImageName: 'ubuntu-22.04'
@@ -45,7 +46,7 @@ stages:
           versionSpec: '3.10.13'
           disableDownloadFromRegistry: true
           addToPath: true
-          architecture: 'x86'
+          architecture: 'x64'
 
       - script: |
           python -m pip install --upgrade pip
