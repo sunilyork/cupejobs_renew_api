@@ -14,7 +14,7 @@ resources:
 variables:
   # containerRegistry: 'sunilmanikonregistry.azurecr.io'
   # containerRegistry: 'sunilmanikonregistry'
-  dockerRegistryServiceConnection: 'sunilmanikondockerregistryserviceconnection'
+  dockerRegistryServiceConnection: 'sunilmanikondockerregistry'
   imageRepository: 'cupejobs' 
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
