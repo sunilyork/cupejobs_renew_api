@@ -26,7 +26,8 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: $(vmImageName)
+      # vmImage: $(vmImageName)
+      name: 'sunilmanikon'
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
