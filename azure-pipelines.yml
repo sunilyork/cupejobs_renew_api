@@ -14,7 +14,7 @@ resources:
 variables:
   # containerRegistry: 'sunilmanikonregistry.azurecr.io'
   # containerRegistry: 'sunilmanikonregistry'
-  # dockerRegistryServiceConnection: 'sunilmanikonconnection'
+  dockerRegistryServiceConnection: 'sunilmanikondockerregistryserviceconnection'
   imageRepository: 'cupejobs' 
   tag: '$(Build.BuildId)'
   
@@ -118,16 +118,11 @@ stages:
 
       - task: Docker@2
         displayName: Build and push an image to azure container registry
-        # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-        # inputs:
-        #   containerRegistry: $(dockerRegistryServiceConnection)
-        #   repository: $(imageRepository)
-        #   command: 'buildAndPush'
-        #   Dockerfile: $(dockerfilePath)
-        #   tags: |
-        #     $(tag)
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
         inputs:
-          command: build
-          dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+          containerRegistry: $(dockerRegistryServiceConnection)
+          repository: $(imageRepository)
+          command: 'buildAndPush'
+          Dockerfile: $(dockerfilePath)
           tags: |
             $(tag)
