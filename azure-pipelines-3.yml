@@ -28,6 +28,10 @@ stages:
     pool:
       vmImage: $(vmImageName)
       # name: 'default'
+    strategy:
+      matrix:
+        Python310:
+          python.version: '3.10'
     steps:
     # - task: UsePythonVersion@0
     #   inputs:
@@ -35,6 +39,10 @@ stages:
     #     disableDownloadFromRegistry: true
     #     addToPath: true
     #     architecture: 'x86'
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(python.version)'
+      displayName: 'Use Python $(python.version)'    
     - script: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
